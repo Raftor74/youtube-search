@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<div class="col-md-12 col-sm-12 text-center">
+    <h1>Поиск видео на YouTube</h1>
+</div>
+<div class="col-md-8 offset-md-2 mt-5">
+    <form action="" method="post">
+        <div class="form-row">
+            <div class="col-md-8">
+                <input type="text" name="query" class="form-control" placeholder="Название видео"
+                       value="{{context['query']}}">
+            </div>
+            <div class="col-md-2">
+                <select name="max_results" class="form-control">
+                    {% for item in context['max_result_list'] %}
+                    {% if item.value == context['max_results'] %}
+                    <option value="{{ item.value }}" selected>{{ item.name }}</option>
+                    {% else %}
+                    <option value="{{ item.value }}">{{ item.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-info">Найти</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-md-12 mt-5">
+    <div class="row">
+        {% for video in context['video_list'] %}
+        <div class="col-md-4 mt-5">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ video.img_url }}" class="card-img-top" alt="{{ video.title }}">
+                <div class="card-body">
+                    <p class="card-text">{{ video.title }}</p>
+                    <a href="{{ video.url }}" class="btn btn-primary" target="_blank">Смотреть</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
